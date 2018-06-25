@@ -1,47 +1,59 @@
+// Create global variables
+var heroChosen = false;
+var defenderChosen = false;
+var isGameOver = false;
+var heroSelected = {};
+var defenderSelected = {};
+
 // Create array of objects for each character
     // Character has three properties: HP, attack power, and counter attack power
-var character1 = {
+var Mario= {
     name: "Mario",
     health: 120,
     attack: 8,
-    counterAttack: 12
-};
+    counterAttack: 8
+    };
 
-var character2 = {
+var Luigi= {
     name: "Luigi",
     health: 100,
-    attack: 6,
-    counterAttack: 16
-};
+    attack: 5,
+    counterAttack: 5
+    };
 
-var character3 = {
-    name: "Princess Peach",
+var Wario = {
+    name: "Wario",
     health: 150,
-    attack: 7,
-    counterAttack: 14
-};
-
-var character4 = {
-    name: "Bowser",
-    health: 100,
     attack: 20,
     counterAttack: 20
-};
-        
-// Create global variables
-var heroChosen = false;
-var defenderChosen =false;
+    };
+
+var Bowser = {
+    name: "Bowser",
+    health: 100,
+    attack: 25,
+    counterAttack: 25
+    };
 
 
 // Create functions
     // reset function
         // empty heroArea, defenderSelection, and defenderArea
         // push heroes into array
-        // display the array in the heroSelection div
         // Reset heroChosen and defenderChosen
         // heroChosen = false;
         // defenderChosen = false;
     // chooseHero function 
+    function initializeHero(chosenHero) {
+        heroSelected.name = chosenHero.name;
+        heroSelected.health = chosenHero.health;
+        heroSelected.attack = chosenHero.attack;
+        heroSelected.counterAttack = chosenHero.counterAttack;
+    }
+        // Prevent player from clicking if game is over or if defender has been chosen
+        // if (isGameOver === true){
+        //     return false;
+        // }
         // When player clicks on a character in the select section...
             // Assign character as a hero
             // Set heroChosen to true
@@ -49,6 +61,16 @@ var defenderChosen =false;
             // Move the remaining characters to the defenderSelection div
         // heroChosen = true;
     // chooseDefender
+    function initializeDefender(chosenDefender) {
+        defenderSelected.name = chosenDefender.name;
+        defenderSelected.health = chosenDefender.health;
+        defenderSelected.attack = chosenDefender.attack;
+        defenderSelected.counterAttack = chosenDefender.counterAttack;
+    }
+        // Prevent player from clicking if game is over
+        // if (isGameOver === true){
+        //     return false;
+        // }
         // When the player clicks on a character in the enemies section...
             // Assign that character as a defender
             // Remove the defender from the array and move to defenderArea div
@@ -59,6 +81,7 @@ var defenderChosen =false;
         // Hero loses health equal to defender counter attack power
     // checkHealth function
         // if hero health < 0
+            // isGameOver = true;
             // Change button text to "Reset"
             // Run reset function
         // if defender health < 0
