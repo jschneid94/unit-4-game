@@ -32,7 +32,7 @@ function resetCharacters() {
         },
 
         "samus" : {
-            name: "Samus",
+            name: "Samus Aran",
             health: 150,
             attack: 20,
             counterAttack: 20,
@@ -57,7 +57,7 @@ function resetGame() {
         remainingEnemies: 0,
         numOfAttacks: 0
     }
-}
+};
 
 function emptyDivs() {
     $("#heroSelection").empty();
@@ -79,7 +79,7 @@ function createCharDiv(character, key) {
 }
 
 // Assigns a character object to a div and adds the div in the DOM
-function renderCharacters() {
+function generateCharacters() {
     var keys = Object.keys(characters);
     for (var i = 0; i < keys.length; i++) {
         // Assigns the character object to a newly created div
@@ -91,5 +91,45 @@ function renderCharacters() {
     }
 }
 
+// Moves remaining characters after hero has been selected
+function moveCharacters() {
+    $(".character").appendTo("#defenderSelection");
+}
+
+
+
+// WHEN THE PAGE LOADS...
+
+$(document).ready(function () {
+
+    // When the hero is selected from the character heroSelection...
+    $("#heroSelection").on("click", ".character", function() {
+        // Assigns the character object to the heroSelected variable
+        var selectedKey = $(this).attr("data-name");
+        gameStatus.heroSelected = characters[selectedKey];
+
+        // Move the character to heroArea
+        $("#heroArea").append(this);
+
+        // Move the remaining characters to defenderSelection
+        moveCharacters();
+
+    });
+
+    // When the defender is selected from the defenderSelection
+    $("#defenderSelection").on("click", ".character", function() {
+        // Assigns the character object to the defenderSelected variable
+        var selectedKey = $(this).attr("data-name");
+        gameStatus.defenderSelected = characters[selectedKey];
+
+        // Move the character to the defenderArea
+        $("#defenderArea").append(this);
+
+    });
+
+    startGame();
+
+
+});
 
 
