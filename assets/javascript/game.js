@@ -35,7 +35,7 @@ var Bowser = {
     counterAttack: 25
     };
 
-var Mario = $("#mario").data( "Mario", { 
+$("#mario").data( "Mario", { 
     name: "Mario",
     health: 120,
     attack: 8,
@@ -46,7 +46,7 @@ var Mario = $("#mario").data( "Mario", {
 
 // Create functions
 function initializeHero(chosenHero) {
-    heroSelected.name = chosenHero.name;
+    heroSelected.name = 
     // heroSelected.health = chosenHero.health;
     // heroSelected.attack = chosenHero.attack;
     // heroSelected.counterAttack = chosenHero.counterAttack;
@@ -63,6 +63,7 @@ function initializeDefender(chosenDefender) {
 
 $(".card").on("click", function() {
     initializeHero(this);
+    console.log()
 });
 
 
