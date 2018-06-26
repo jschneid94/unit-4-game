@@ -7,14 +7,14 @@ var defenderSelected = {};
 
 // Create array of objects for each character
     // Character has three properties: HP, attack power, and counter attack power
-var Mario= {
-    name: "Mario",
-    health: 120,
-    attack: 8,
-    counterAttack: 8
-    };
+// var Mario = {
+//     name: "Mario",
+//     health: 120,
+//     attack: 8,
+//     counterAttack: 8
+//     };
 
-var Luigi= {
+var Luigi = {
     name: "Luigi",
     health: 100,
     attack: 5,
@@ -35,8 +35,37 @@ var Bowser = {
     counterAttack: 25
     };
 
+var Mario = $("#mario").data( "Mario", { 
+    name: "Mario",
+    health: 120,
+    attack: 8,
+    counterAttack: 12 }
+);
+
+
 
 // Create functions
+function initializeHero(chosenHero) {
+    heroSelected.name = chosenHero.name;
+    // heroSelected.health = chosenHero.health;
+    // heroSelected.attack = chosenHero.attack;
+    // heroSelected.counterAttack = chosenHero.counterAttack;
+}
+
+function initializeDefender(chosenDefender) {
+    defenderSelected.name = chosenDefender.name;
+    defenderSelected.health = chosenDefender.health;
+    defenderSelected.attack = chosenDefender.attack;
+    defenderSelected.counterAttack = chosenDefender.counterAttack;
+}
+
+
+
+$(".card").on("click", function() {
+    initializeHero(this);
+});
+
+
     // reset function
         // empty heroArea, defenderSelection, and defenderArea
         // push heroes into array
@@ -44,29 +73,22 @@ var Bowser = {
         // heroChosen = false;
         // defenderChosen = false;
     // chooseHero function 
-    function initializeHero(chosenHero) {
-        heroSelected.name = chosenHero.name;
-        heroSelected.health = chosenHero.health;
-        heroSelected.attack = chosenHero.attack;
-        heroSelected.counterAttack = chosenHero.counterAttack;
-    }
+  
         // Prevent player from clicking if game is over or if defender has been chosen
         // if (isGameOver === true){
         //     return false;
         // }
         // When player clicks on a character in the select section...
+
             // Assign character as a hero
+            //initializeHero(this);
             // Set heroChosen to true
+            // heroChosen = true;
             // Remove hero from array and move to heroArea div
             // Move the remaining characters to the defenderSelection div
         // heroChosen = true;
     // chooseDefender
-    function initializeDefender(chosenDefender) {
-        defenderSelected.name = chosenDefender.name;
-        defenderSelected.health = chosenDefender.health;
-        defenderSelected.attack = chosenDefender.attack;
-        defenderSelected.counterAttack = chosenDefender.counterAttack;
-    }
+   
         // Prevent player from clicking if game is over
         // if (isGameOver === true){
         //     return false;
