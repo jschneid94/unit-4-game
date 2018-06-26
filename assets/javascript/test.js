@@ -10,6 +10,8 @@ function startGame() {
     gameStatus = resetGame();
 
     generateCharacters();
+    $("#attack-btn").hide();
+    $("#restart-btn").hide();
 }
 
 // Resets the characters to their original stats
@@ -94,6 +96,40 @@ function generateCharacters() {
 // Moves remaining characters after hero has been selected
 function moveCharacters() {
     $(".character").appendTo("#defenderSelection");
+    // Once characters are moved, allow player to choose a defender
+    enableChooseDefender();
+}
+
+// Allows player to choose a defender after hero has been chosen or after defender has been defeated
+function enableChooseDefender() {
+    $("#defenderSelection").on("click", ".character", function(){
+        // Assigns the character object to the defenderSelected variable
+        var opponentKey = $(this).attr("data-name");
+        gameStatus.defenderSelected = characters[opponentKey];
+
+        // Moves the character to the defenderArea
+        $("#defenderArea").append(this);
+
+        // Prevent the defender from being clicked
+        $(this).addClass("villain").removeClass("character");
+        $(".villain").unbind("click");
+
+        // Reveal the attack button now that there is a hero and defender
+        $("#attack-btn").show();
+
+        // Prevent the remaining characters from being clicked
+        $("#defenderSelection").off("click");
+    });
+}
+
+// Function for hero to damage defender's health
+function attack(numOfAttacks) {
+    gameStatus.defenderSelected.health -= gameStatus.heroSelected.attack * numOfAttacks;
+}
+
+// Function for the defender to damage the hero's health
+function counterAttack() {
+    gameStatus.heroSelected.health -= gameStatus.defenderSelected.counterAttack;
 }
 
 
@@ -111,20 +147,25 @@ $(document).ready(function () {
         // Move the character to heroArea
         $("#heroArea").append(this);
 
+        // Prevent the character from being clicked
+        $(this).addClass("hero").removeClass("character");
+        $(".hero").unbind("click");
+        
         // Move the remaining characters to defenderSelection
         moveCharacters();
-
     });
 
-    // When the defender is selected from the defenderSelection
-    $("#defenderSelection").on("click", ".character", function() {
-        // Assigns the character object to the defenderSelected variable
-        var selectedKey = $(this).attr("data-name");
-        gameStatus.defenderSelected = characters[selectedKey];
+    $("#attack-btn").on("click", function() {
+        // Total number of attack increases by 1
+        gameStatus.numOfAttacks++;
 
-        // Move the character to the defenderArea
-        $("#defenderArea").append(this);
+        // Run attack and counterAttack functions
+        attack(gameStatus.numOfAttacks);
+        counterAttack();
 
+        // Display the hero and defender's health
+        $("#heroArea .character-health").text(gameStatus.heroSelected.health);
+        $("#defenderArea .character-health").text(gameStatus.defenderSelected.health);
     });
 
     startGame();
