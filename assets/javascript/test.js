@@ -72,11 +72,13 @@ function emptyDivs() {
 
 // Generates a character div using object properties
 function createCharDiv(character, key) {
-    var charDiv = $("<div class='character' data-name='" + key + "'>");
-    var charName = $("<div class='character-name'>").text(character.name);
-    var charImg = $("<div class='character-img'>").attr("src", character.imgURL);
-    var charHealth = $("<div class='character-health'>").text(character.health);
-    charDiv.append(charName).append(charImg).append(charHealth);
+    var charDiv = $("<div class='character card col-md-3' data-name='" + key + "'>");
+    var charName = $("<div class='character-name card-title'>").text(character.name);
+    var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
+    var charHealth = $("<div class='character-health card-text'>").text(character.health);
+    var cardBody = $("<div class='card-body'>");
+    cardBody.append(charName).append(charHealth);
+    charDiv.append(charImg).append(cardBody);
     return charDiv;
 }
 

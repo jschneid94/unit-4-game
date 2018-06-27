@@ -1,0 +1,8 @@
+.character {
+    width: 300px;
+    height: 300px;
+}
+
+.character img {
+    width: 100%;
+}
