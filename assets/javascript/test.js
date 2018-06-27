@@ -72,7 +72,7 @@ function emptyDivs() {
 
 // Generates a character div using object properties
 function createCharDiv(character, key) {
-    var charDiv = $("<div class='character card col-md-3' data-name='" + key + "'>");
+    var charDiv = $("<div class='character card col-md-2 col-sm-3' data-name='" + key + "'>");
     var charName = $("<div class='character-name card-title'>").text(character.name);
     var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
     var charHealth = $("<div class='character-health card-text'>").text(character.health);
@@ -92,6 +92,8 @@ function generateCharacters() {
         var charDiv = createCharDiv(character, characterKey);
         // Puts the character div into the heroSelection div
         $("#heroSelection").append(charDiv);
+        gameStatus.remainingEnemies = keys.length;
+        console.log(gameStatus.remainingEnemies);
     }
 }
 
@@ -127,12 +129,57 @@ function enableChooseDefender() {
 // Function for hero to damage defender's health
 function attack(numOfAttacks) {
     gameStatus.defenderSelected.health -= gameStatus.heroSelected.attack * numOfAttacks;
+    checkHealth();
 }
 
 // Function for the defender to damage the hero's health
 function counterAttack() {
-    gameStatus.heroSelected.health -= gameStatus.defenderSelected.counterAttack;
+
+    if (gameStatus.defenderSelected === null) {
+        return false;
+    } else {
+        gameStatus.heroSelected.health -= gameStatus.defenderSelected.counterAttack;
+        checkHealth();
+    }
 }
+
+// Function to check hero and defender's health after the battle phase
+function checkHealth () {
+    var tryAgain;
+    // If the player's health reaches 0...
+    if (gameStatus.heroSelected.health <= 0) {
+        // timeout so player can see hero has died
+        setTimeout( function() {
+            // Ask player if they would like to play again
+            tryAgain = confirm("Continue?");
+            // If yes, restart the game
+            if (tryAgain) {
+                emptyDivs();
+                startGame();
+            } 
+            // If no, display Game Over
+            else {
+                alert("Game Over!");
+            }
+        }, 2000);
+    }
+
+    // if the defender's health reaches 0...
+    if (gameStatus.defenderSelected.health <= 0) {
+        // The defender is removed from the page
+        $(".villain").remove();
+        gameStatus.defenderSelected = null;
+
+        // Decrements the count for remaining enemies
+        gameStatus.remainingEnemies--;
+        console.log(gameStatus.remainingEnemies);
+
+        // Allow the player to choose another defender to challenge
+        enableChooseDefender();
+    }
+}
+
+
 
 
 
@@ -148,6 +195,8 @@ $(document).ready(function () {
 
         // Move the character to heroArea
         $("#heroArea").append(this);
+        gameStatus.remainingEnemies--;
+        console.log(gameStatus.remainingEnemies);
 
         // Prevent the character from being clicked
         $(this).addClass("hero").removeClass("character");
@@ -165,9 +214,18 @@ $(document).ready(function () {
         attack(gameStatus.numOfAttacks);
         counterAttack();
 
-        // Display the hero and defender's health
+        // Display the hero health to their div
         $("#heroArea .character-health").text(gameStatus.heroSelected.health);
-        $("#defenderArea .character-health").text(gameStatus.defenderSelected.health);
+
+        /* if statement to return nothing if the defenderSelected is killed,
+            error message would occur bc killing defender would delete their health property */
+        if (gameStatus.defenderSelected === null) {
+            return false;
+        }
+        // Displays the defenders health to their div
+        else {
+            $("#defenderArea .character-health").text(gameStatus.defenderSelected.health);
+        }
     });
 
     startGame();
