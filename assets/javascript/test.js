@@ -135,9 +135,12 @@ function attack(numOfAttacks) {
 // Function for the defender to damage the hero's health
 function counterAttack() {
 
+    // If the defender has been killed, don't run this function
     if (gameStatus.defenderSelected === null) {
         return false;
-    } else {
+    } 
+    // If defender is still alive after attack, perform counterattack
+    else {
         gameStatus.heroSelected.health -= gameStatus.defenderSelected.counterAttack;
         checkHealth();
     }
