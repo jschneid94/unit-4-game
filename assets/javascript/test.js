@@ -61,14 +61,13 @@ function resetGame() {
     }
 };
 
+// Function to empty the the playing field before resetting the game.
 function emptyDivs() {
     $("#heroSelection").empty();
     $("#heroArea").empty();
     $("#defenderSelection").empty();
     $("#defenderArea").empty();
 }
-
-// RENDERING FUNCTIONS
 
 // Generates a character div using object properties
 function createCharDiv(character, key) {
@@ -180,10 +179,22 @@ function checkHealth () {
         // Allow the player to choose another defender to challenge
         enableChooseDefender();
     }
+
+    checkWin();
 }
 
-
-
+function checkWin() {
+    var playAgain;
+    if (gameStatus.remainingEnemies === 0) {
+        setTimeout(function() {
+            playAgain = confirm("You WON! Play again?");
+            if (playAgain === true) {
+                emptyDivs();
+                startGame();
+            }
+        }, 2000);
+    }
+}
 
 
 // WHEN THE PAGE LOADS...
@@ -231,8 +242,8 @@ $(document).ready(function () {
         }
     });
 
+    // When DOM loads, run the game
     startGame();
-
 
 });
 
