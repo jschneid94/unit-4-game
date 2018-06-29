@@ -211,6 +211,8 @@ $(document).ready(function () {
         $("#heroArea").append(this);
         gameStatus.remainingEnemies--;
         console.log(gameStatus.remainingEnemies);
+
+        $("#fightResults").append("<div class='col-md-6'>" + gameStatus.heroSelected.name + "</div>")
         
 
         // Prevent the character from being clicked
