@@ -113,6 +113,9 @@ function enableChooseDefender() {
         // Moves the character to the defenderArea
         $("#defenderArea").append(this);
 
+        // Displays the defender's name and health in the battle section
+        $("#defenderSpot").append("<div>" + gameStatus.defenderSelected.name + "</div>" + "<div>" + gameStatus.defenderSelected.health + "</div>")
+
         // Prevent the defender from being clicked
         $(this).addClass("villain col-md-12").removeClass("character col-md-3");
         $(".villain").unbind("click");
@@ -212,8 +215,9 @@ $(document).ready(function () {
         gameStatus.remainingEnemies--;
         console.log(gameStatus.remainingEnemies);
 
-        $("#fightResults").append("<div class='col-md-6'>" + gameStatus.heroSelected.name + "</div>")
-        
+        // Displays the hero's name and health in the battle section
+
+        $("#heroSpot").append("<div>" + gameStatus.heroSelected.name + "</div>" + "<div>" + gameStatus.heroSelected.health + "</div>")
 
         // Prevent the character from being clicked
         $(this).addClass("hero col-md-12").removeClass("character col-md-3");

@@ -59,7 +59,7 @@
         <div class="row">
 
             <!-- Chosen hero and defender -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 
                 <!-- Hero goes here -->
                 <div id="heroArea"></div>
@@ -68,24 +68,25 @@
 
 
             <!-- Fight Section -->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <!-- Header -->
                 <div class="row">
                     <h3 class="text-center mx-auto my-5 text-light">Fight Section:</h3>
                 </div>
 
                 <div class="row">
-                    <button class="btn btn-danger mx-auto" id="attack-btn">Attack</button>
-                    <button id="restart-btn">Restart</button>
+                    <div class="col-md-4 text-center text-light" id="heroSpot"></div>
+                    <button class="btn btn-danger mx-auto col-md-4" id="attack-btn">Attack</button>
+                    <div class="col-md-4 text-center text-light" id="defenderSpot"></div>                    
                 </div>
 
                 <!-- Fight results will go here -->
                 <div class="row" id="fightResults">
-                    
+                   
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <!-- Defender goes here -->
                 <div id="defenderArea"></div>
             </div>
