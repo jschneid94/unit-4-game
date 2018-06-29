@@ -6,3 +6,8 @@
 .character img {
     width: 100%;
 }
+
+#smash-logo {
+    width: 60%;
+    height: auto;
+}
