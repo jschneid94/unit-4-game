@@ -71,13 +71,13 @@ function emptyDivs() {
 
 // Generates a character div using object properties
 function createCharDiv(character, key) {
-    var charDiv = $("<div class='character col-md-2 mx-auto' data-name='" + key + "'>");
+    var charDiv = $("<div class='character col-md-2 mx-auto text-light text-center' data-name='" + key + "'>");
     var charName = $("<div class='character-name card-title'>").text(character.name);
     var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
     var charHealth = $("<div class='character-health card-text'>").text(character.health);
-    var cardBody = $("<div class='card-body'>");
-    cardBody.append(charName).append(charHealth);
-    charDiv.append(charImg);
+    var charBody = $("<div class='card-body'>");
+    charBody.append(charName).append(charHealth);
+    charDiv.append(charImg).append(charBody);
     return charDiv;
 }
 
@@ -112,9 +112,6 @@ function enableChooseDefender() {
 
         // Moves the character to the defenderArea
         $("#defenderArea").append(this);
-
-        // Displays the defender's name and health in the battle section
-        $("#defenderSpot").append("<div>" + gameStatus.defenderSelected.name + "</div>" + "<div>" + gameStatus.defenderSelected.health + "</div>")
 
         // Prevent the defender from being clicked
         $(this).addClass("villain col-md-12").removeClass("character col-md-3");
@@ -153,6 +150,9 @@ function checkHealth () {
     var tryAgain;
     // If the player's health reaches 0...
     if (gameStatus.heroSelected.health <= 0) {
+        // Remove the player from the DOM
+        $(".hero").remove();
+        gameStatus.heroSelected = null;
         // timeout so player can see hero has died
         setTimeout( function() {
             // Ask player if they would like to play again
@@ -215,16 +215,13 @@ $(document).ready(function () {
         gameStatus.remainingEnemies--;
         console.log(gameStatus.remainingEnemies);
 
-        // Displays the hero's name and health in the battle section
-
-        $("#heroSpot").append("<div>" + gameStatus.heroSelected.name + "</div>" + "<div>" + gameStatus.heroSelected.health + "</div>")
-
         // Prevent the character from being clicked
         $(this).addClass("hero col-md-12").removeClass("character col-md-3");
         $(".hero").unbind("click");
         
         // Move the remaining characters to defenderSelection
         moveCharacters();
+
     });
 
     $("#attack-btn").on("click", function() {
