@@ -5,3 +5,9 @@ body {
     background-size: cover;
     height: 50%;
 }
+
+
+.character img:hover {
+    transform: scale(1.5);
+}
+

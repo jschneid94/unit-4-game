@@ -211,6 +211,7 @@ $(document).ready(function () {
         $("#heroArea").append(this);
         gameStatus.remainingEnemies--;
         console.log(gameStatus.remainingEnemies);
+        
 
         // Prevent the character from being clicked
         $(this).addClass("hero col-md-12").removeClass("character col-md-3");
