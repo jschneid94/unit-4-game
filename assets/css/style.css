@@ -6,6 +6,12 @@ body {
     height: 50%;
 }
 
+#game_finished {
+    position: absolute;
+    left: 150px;
+    top: 730px;
+    z-index: 10;
+}
 
 .character img:hover {
     transform: scale(1.5);

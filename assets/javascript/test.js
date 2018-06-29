@@ -12,6 +12,8 @@ function startGame() {
     generateCharacters();
     $("#attack-btn").hide();
     $("#restart-btn").hide();
+
+    $("#game_finished").hide();
 }
 
 // Resets the characters to their original stats
@@ -153,6 +155,8 @@ function checkHealth () {
         // Remove the player from the DOM
         $(".hero").remove();
         gameStatus.heroSelected = null;
+        $("#game_finished").show();
+
         // timeout so player can see hero has died
         setTimeout( function() {
             // Ask player if they would like to play again
@@ -189,11 +193,14 @@ function checkHealth () {
 function checkWin() {
     var playAgain;
     if (gameStatus.remainingEnemies === 0) {
+        $("#game_finished").attr("top", "0").show();
         setTimeout(function() {
             playAgain = confirm("You WON! Play again?");
             if (playAgain === true) {
                 emptyDivs();
                 startGame();
+            } else {
+                alert("Game Over!");
             }
         }, 2000);
     }
