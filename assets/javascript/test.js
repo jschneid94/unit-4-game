@@ -193,7 +193,7 @@ function checkHealth () {
 function checkWin() {
     var playAgain;
     if (gameStatus.remainingEnemies === 0) {
-        $("#game_finished").attr("top", "0").show();
+        $("#game_finished").css({"top":"400px"}).show();
         setTimeout(function() {
             playAgain = confirm("You WON! Play again?");
             if (playAgain === true) {
