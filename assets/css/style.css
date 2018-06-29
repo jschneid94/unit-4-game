@@ -1,13 +1,7 @@
-.character {
-    width: 300px;
-    height: 300px;
-}
-
-.character img {
-    width: 100%;
-}
-
-#smash-logo {
-    width: 60%;
-    height: auto;
+body {
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 50%;
 }

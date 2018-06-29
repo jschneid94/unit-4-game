@@ -30,7 +30,7 @@ function resetCharacters() {
             health: 110,
             attack: 9,
             counterAttack: 9,
-            imgURL: "assets/images/link.jpg"
+            imgURL: "assets/images/link.png"
         },
 
         "samus" : {
@@ -38,7 +38,7 @@ function resetCharacters() {
             health: 150,
             attack: 20,
             counterAttack: 20,
-            imgURL: "assets/images/samus.jpg"
+            imgURL: "assets/images/samus.png"
         },
 
         "pikachu" : {
@@ -71,13 +71,13 @@ function emptyDivs() {
 
 // Generates a character div using object properties
 function createCharDiv(character, key) {
-    var charDiv = $("<div class='character card col-md-2 mx-auto' data-name='" + key + "'>");
+    var charDiv = $("<div class='character col-md-2 mx-auto' data-name='" + key + "'>");
     var charName = $("<div class='character-name card-title'>").text(character.name);
     var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
     var charHealth = $("<div class='character-health card-text'>").text(character.health);
     var cardBody = $("<div class='card-body'>");
     cardBody.append(charName).append(charHealth);
-    charDiv.append(charImg).append(cardBody);
+    charDiv.append(charImg);
     return charDiv;
 }
 
