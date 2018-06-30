@@ -10,7 +10,7 @@ var $narr_game = $("#narr_game");
 var $finished_game = $("#finished_game");
 var $narr_continue = $("#narr_continue");
 
-// RESET FUNCTIONS
+// FUNCTIONS
 
 // Function used for initializing the game
 function startGame() {
@@ -89,8 +89,9 @@ function createCharDiv(character, key) {
     var charName = $("<div class='character-name card-title'>").text(character.name);
     var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
     var charHealth = $("<div class='character-health card-text'>").text(character.health);
+    var charSound = $("<audio><source src='" + character.audio + "'></source></audio>")
     var charBody = $("<div class='card-body'>");
-    charBody.append(charName).append(charHealth);
+    charBody.append(charName).append(charHealth).append(charSound);
     charDiv.append(charImg).append(charBody);
     return charDiv;
 }
@@ -136,6 +137,10 @@ function enableChooseDefender() {
 
         // Prevent the remaining characters from being clicked
         $("#defenderSelection").off("click");
+
+        var audio = $(this).find("audio");
+        audio[0].play();
+        
     });
 }
 
@@ -202,6 +207,7 @@ function checkHealth () {
     checkWin();
 }
 
+// Checks if the hero has defeated all the remaining enemies.
 function checkWin() {
     var playAgain;
     if (gameStatus.remainingEnemies === 0) {
@@ -211,8 +217,6 @@ function checkWin() {
             if (playAgain === true) {
                 emptyDivs();
                 startGame();
-            } else {
-                alert("Game Over!");
             }
         }, 2000);
     }
@@ -240,6 +244,10 @@ $(document).ready(function () {
         
         // Move the remaining characters to defenderSelection
         moveCharacters();
+
+        // Play character audio
+        var audio = $(this).find("audio");
+        audio[0].play();
 
     });
 
