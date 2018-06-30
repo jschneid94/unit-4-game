@@ -2,6 +2,14 @@
 var characters;
 var gameStatus;
 
+// Variables to reference the game sounds
+var $theme_song = $("#theme_song");
+var $narr_ready = $("#narr_ready");
+var $narr_go = $("#narr_go");
+var $narr_game = $("#narr_game");
+var $finished_game = $("#finished_game");
+var $narr_continue = $("#narr_continue");
+
 // RESET FUNCTIONS
 
 // Function used for initializing the game
@@ -24,7 +32,8 @@ function resetCharacters() {
             health: 120,
             attack: 8,
             counterAttack: 8,
-            imgURL: "assets/images/mario.png"
+            imgURL: "assets/images/mario.png",
+            audio: "assets/images/mario_choose.wav"
         },  
         
         "link" : {
@@ -32,7 +41,8 @@ function resetCharacters() {
             health: 110,
             attack: 9,
             counterAttack: 9,
-            imgURL: "assets/images/link.png"
+            imgURL: "assets/images/link.png",
+            audio: "assets/images/link_choose.wav"
         },
 
         "samus" : {
@@ -40,7 +50,8 @@ function resetCharacters() {
             health: 150,
             attack: 20,
             counterAttack: 20,
-            imgURL: "assets/images/samus.png"
+            imgURL: "assets/images/samus.png",
+            audio: "assets/images/samus_choose.wav"
         },
 
         "pikachu" : {
@@ -48,7 +59,8 @@ function resetCharacters() {
             health: 100,
             attack: 25,
             counterAttack: 25,
-            imgURL: "assets/images/pikachu.png"
+            imgURL: "assets/images/pikachu.png",
+            audio: "assets/images/pikachu_choose.wav"
         }
     }
 }
@@ -73,7 +85,7 @@ function emptyDivs() {
 
 // Generates a character div using object properties
 function createCharDiv(character, key) {
-    var charDiv = $("<div class='character col-md-2 mx-auto text-light text-center' data-name='" + key + "'>");
+    var charDiv = $("<div class='character col-md-2 col-sm-3 mx-auto text-light text-center' data-name='" + key + "'>");
     var charName = $("<div class='character-name card-title'>").text(character.name);
     var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
     var charHealth = $("<div class='character-health card-text'>").text(character.health);
@@ -116,7 +128,7 @@ function enableChooseDefender() {
         $("#defenderArea").append(this);
 
         // Prevent the defender from being clicked
-        $(this).addClass("villain col-md-12").removeClass("character col-md-3");
+        $(this).addClass("villain col-md-12 col-sm-12").removeClass("character col-md-2");
         $(".villain").unbind("click");
 
         // Reveal the attack button now that there is a hero and defender
@@ -223,7 +235,7 @@ $(document).ready(function () {
         console.log(gameStatus.remainingEnemies);
 
         // Prevent the character from being clicked
-        $(this).addClass("hero col-md-12").removeClass("character col-md-3");
+        $(this).addClass("hero col-md-12 col-sm-12").removeClass("character col-md-2");
         $(".hero").unbind("click");
         
         // Move the remaining characters to defenderSelection
