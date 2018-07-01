@@ -18,14 +18,16 @@ var narrContinue = new Audio("assets/images/narr_continue.wav");
 function startGame() {
     characters = resetCharacters();
     gameStatus = resetGame();
-
     generateCharacters();
-    $("#attack-btn").hide();
-    $("#restart-btn").hide();
 
+    // Hides attack button and the game finished graphic
+    $("#attack-btn").hide();
     $("#game_finished").hide();
 
+    // Restarts the theme music and resets the audio used in battleSound function
     theme.load();
+    narrReady = new Audio("assets/images/narr_ready.wav");
+    narrGo = new Audio("assets/images/narr_go.wav");
 }
 
 // Resets the characters to their original stats
