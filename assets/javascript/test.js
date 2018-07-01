@@ -1,14 +1,16 @@
+// VARIABLES
 
+// Global variables
 var characters;
 var gameStatus;
 
-// Variables to reference the game sounds
-var $theme_song = $("#theme_song");
-var $narr_ready = $("#narr_ready");
-var $narr_go = $("#narr_go");
-var $narr_game = $("#narr_game");
-var $finished_game = $("#finished_game");
-var $narr_continue = $("#narr_continue");
+// Game sound variables
+var theme = new Audio("assets/images/theme_song.mp3");
+var narrReady = new Audio("assets/images/narr_ready.wav");
+var narrGo = new Audio("assets/images/narr_go.wav");
+var narrGame = new Audio("assets/images/narr_game.wav");
+var gameFinish = new Audio("assets/images/finished_game_audio.wav");
+var narrContinue = new Audio("assets/images/narr_continue.wav");
 
 // FUNCTIONS
 
@@ -22,6 +24,8 @@ function startGame() {
     $("#restart-btn").hide();
 
     $("#game_finished").hide();
+
+    theme.load();
 }
 
 // Resets the characters to their original stats
@@ -86,9 +90,9 @@ function emptyDivs() {
 // Generates a character div using object properties
 function createCharDiv(character, key) {
     var charDiv = $("<div class='character col-md-2 col-sm-3 mx-auto text-light text-center' data-name='" + key + "'>");
-    var charName = $("<div class='character-name card-title'>").text(character.name);
+    var charName = $("<div class='character-name h2 card-title'>").text(character.name);
     var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
-    var charHealth = $("<div class='character-health card-text'>").text(character.health);
+    var charHealth = $("<div class='character-health h3 card-text'>").text(character.health);
     var charSound = $("<audio><source src='" + character.audio + "'></source></audio>")
     var charBody = $("<div class='card-body'>");
     charBody.append(charName).append(charHealth).append(charSound);
@@ -138,10 +142,34 @@ function enableChooseDefender() {
         // Prevent the remaining characters from being clicked
         $("#defenderSelection").off("click");
 
+        // Plays the character's audio when they are selected
         var audio = $(this).find("audio");
         audio[0].play();
         
     });
+}
+
+// Plays a sound when the first fight has begun.
+function battleSound() {
+    narrReady.loop = false;
+    narrReady.load();
+    narrReady.play();
+    setTimeout(function() {
+        narrGo.loop = false;
+        narrGo.load();
+        narrGo.play();
+        narrGo = false;
+    }, 1000);
+
+    // Both sounds are set to false after playing so they won't play again
+    narrReady = false;
+}
+
+// Stops the theme music and plays the end sounds
+function endSound() {
+    theme.pause();
+    narrGame.play();
+    gameFinish.play();
 }
 
 // Function for hero to damage defender's health
@@ -172,7 +200,15 @@ function checkHealth () {
         // Remove the player from the DOM
         $(".hero").remove();
         gameStatus.heroSelected = null;
+
+        // Ends game with graphic and sound effects
         $("#game_finished").show();
+        endSound();
+
+        // Plays narrContinue right before the confirm
+        setTimeout(function() {
+            narrContinue.play();
+        }, 2000);
 
         // timeout so player can see hero has died
         setTimeout( function() {
@@ -187,7 +223,7 @@ function checkHealth () {
             else {
                 alert("Game Over!");
             }
-        }, 2000);
+        }, 2050);
     }
 
     // if the defender's health reaches 0...
@@ -212,6 +248,7 @@ function checkWin() {
     var playAgain;
     if (gameStatus.remainingEnemies === 0) {
         $("#game_finished").css({"top":"400px"}).show();
+        endSound();
         setTimeout(function() {
             playAgain = confirm("You WON! Play again?");
             if (playAgain === true) {
@@ -271,6 +308,10 @@ $(document).ready(function () {
         else {
             $("#defenderArea .character-health").text(gameStatus.defenderSelected.health);
         }
+
+        // Starts theme music and initial battle sound
+        theme.play();
+        battleSound();
     });
 
     // When DOM loads, run the game
