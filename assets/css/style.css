@@ -52,12 +52,20 @@ body {
 
 @media all and (orientation:portrait) {
     body {
-        background-position-x: center;
+        -webkit-background-size: 100%; 
+        -moz-background-size: 100%; 
+        -o-background-size: 100%; 
+        background-size: 100%; 
+        -webkit-background-size: cover; 
+        -moz-background-size: cover; 
+        -o-background-size: cover; 
+        background-size: cover;
     }
 
     .container-fluid {
         display: none;
     }
+
     .rotate {
         display: block
     }
