@@ -1,8 +1,8 @@
 body {
     background-image: url("../images/background.jpg");
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-size: cover;
+    background-attachment: fixed;
     height: 50%;
 }
 
@@ -52,7 +52,6 @@ body {
 
 @media all and (orientation:portrait) {
     body {
-        background-size: cover;
         background-position-x: center;
     }
 
