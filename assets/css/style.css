@@ -52,6 +52,7 @@ body {
 
 @media all and (orientation:portrait) {
     body {
+        background-position-x: center;
         -webkit-background-size: 100%; 
         -moz-background-size: 100%; 
         -o-background-size: 100%; 
@@ -65,7 +66,7 @@ body {
     .container-fluid {
         display: none;
     }
-
+    
     .rotate {
         display: block
     }
