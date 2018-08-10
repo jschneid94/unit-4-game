@@ -22,7 +22,7 @@ body {
 .rotate {
     display: none;
     position: relative;
-    top: 300px;
+    top: 50px;
 }
 
 .card {
@@ -59,6 +59,8 @@ body {
 @media all and (orientation:portrait) {
     body {
         background-position-x: center;
+        background-image: none;
+        background-color: black;
     }
 
     .container-fluid {
