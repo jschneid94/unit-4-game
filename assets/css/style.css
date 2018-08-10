@@ -53,7 +53,7 @@ body {
 @media all and (orientation:portrait) {
     body {
         background-size: cover;
-        background-position-x: -450px;
+        background-position-x: center;
     }
 
     .container-fluid {
