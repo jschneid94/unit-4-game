@@ -1,9 +1,15 @@
 body {
     background-image: url("../images/background.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
     background-attachment: fixed;
-    height: 50%;
+    -webkit-background-size: 100%; 
+    -moz-background-size: 100%; 
+    -o-background-size: 100%; 
+    background-size: 100%; 
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover;
 }
 
 #game_finished {
@@ -53,14 +59,6 @@ body {
 @media all and (orientation:portrait) {
     body {
         background-position-x: center;
-        -webkit-background-size: 100%; 
-        -moz-background-size: 100%; 
-        -o-background-size: 100%; 
-        background-size: 100%; 
-        -webkit-background-size: cover; 
-        -moz-background-size: cover; 
-        -o-background-size: cover; 
-        background-size: cover;
     }
 
     .container-fluid {
