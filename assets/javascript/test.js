@@ -91,14 +91,14 @@ function emptyDivs() {
 
 // Generates a character div using object properties
 function createCharDiv(character, key) {
-    var charDiv = $("<div class='character col-md-2 col-sm-3 mx-auto text-light text-center' data-name='" + key + "'>");
-    var charName = $("<div class='character-name h2 card-title'>").text(character.name);
+    var charDiv = $("<div class='character col-md-3 col-sm-3 card text-light mx-auto text-center' data-name='" + key + "'>");
+    var charName = $("<div class='character-name h3 card-title'>").text(character.name);
     var charImg = $("<img class='character-img card-img-top'>").attr("src", character.imgURL);
     var charHealth = $("<div class='character-health h3 card-text'>").text(character.health);
     var charSound = $("<audio><source src='" + character.audio + "'></source></audio>")
     var charBody = $("<div class='card-body'>");
-    charBody.append(charName).append(charHealth).append(charSound);
-    charDiv.append(charImg).append(charBody);
+    charBody.append(charName, charHealth, charSound);
+    charDiv.append(charImg, charBody);
     return charDiv;
 }
 
@@ -135,7 +135,7 @@ function enableChooseDefender() {
         $("#defenderArea").append(this);
 
         // Prevent the defender from being clicked
-        $(this).addClass("villain col-md-12 col-sm-12").removeClass("character col-md-2");
+        $(this).addClass("villain").removeClass("character col-md-3 col-sm-3");
         $(".villain").unbind("click");
 
         // Reveal the attack button now that there is a hero and defender
@@ -278,7 +278,7 @@ $(document).ready(function () {
         console.log(gameStatus.remainingEnemies);
 
         // Prevent the character from being clicked
-        $(this).addClass("hero col-md-12 col-sm-12").removeClass("character col-md-2");
+        $(this).addClass("hero").removeClass("character col-md-3 col-sm-3");
         $(".hero").unbind("click");
         
         // Move the remaining characters to defenderSelection
